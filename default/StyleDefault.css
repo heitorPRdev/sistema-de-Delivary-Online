@@ -1,0 +1,38 @@
+body{
+    background-color: rgb(215, 215, 215);
+    font-family: Arial, Helvetica, sans-serif;
+    font-style: Helvetica;
+    
+}
+h1,h2,h3,h4,h5,h6{
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-style: Tahoma;
+    color: rgb(133, 0, 0);
+}
+a{
+    
+    color: rgb(155, 20, 20);
+    font-size: 18px;
+}
+.aBtnDefault{
+    text-decoration: none;
+    padding: 5px;
+    background-color: brown;
+    color: white;
+    border-style: solid;
+    border-width: 1px;
+    border-color: black;
+    border-radius: 5px;
+    box-shadow: 3px 3px 2px rgb(116, 116, 116);
+    font-family: Arial, Helvetica, sans-serif;
+    font-style: Arial;
+}
+.DivCustom{
+    padding: 15px;
+    background-color: rgb(255, 255, 255);
+    width: 35%;
+    height: 300px;
+    border-radius: 5px;
+    text-align: center;
+    
+}

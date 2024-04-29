@@ -1,6 +1,6 @@
 # sistema-de-Delivary-Online
 
-Esse sistema é sobre uma criação de delivery online.Usarei **PHP** como BackEnd do projeto, **Jquery,HTML e CSS** no desenvolvimento FrontEnd, para o banco de dados usarei **MySQL**.
+Esse sistema é sobre uma criação de delivery online.Usarei **PHP** como BackEnd do projeto, **Jquery,HTML, CSS e BootsTrap** no desenvolvimento FrontEnd, para o banco de dados usarei **MySQL**.
 ___
 
 ## Passo a Passo
@@ -11,21 +11,21 @@ No banco de dados teremos:
 ##### Tabela de Cadastro
 |  BDCliente | implementado |
 | ----- | ------------ |
-| nomeCliente  |  ❌ |
-| SenhaCliente |  ❌ |
-| EmpresaSON |  ❌ |
-| DataHora |  ❌ |
-| idCliente  |  ❌ | 
+| nomeCliente  |  ✅ |
+| SenhaCliente |  ✅ |
+| EmpresaSON |  ✅ |
+| DataHora |  ✅ |
+| idCliente  |  ✅ | 
 
 ##### Tabela Enderesso
 
 |  BDendcliente | implementado |
 | ----- | ------------ |
-| EndeCliente  |  ❌ |
-| CEPCliente |  ❌ |
-| OBSCliente |  ❌ |
-| DataHora |  ❌ |
-| idCliente  |  ❌ | 
+| EndeCliente  |  ✅ |
+| CEPCliente |  ✅ |
+| OBSCliente |  ✅ |
+| DataHora |  ✅ |
+| idCliente  |  ✅ | 
 
 **Essas tabelas serão interligadas**
 ### 2-Criação de estilos e arquivos javaScript padrões
