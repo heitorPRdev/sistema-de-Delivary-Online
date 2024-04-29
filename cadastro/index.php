@@ -34,26 +34,31 @@
     </div>
   </nav>
   <?php 
-    $nome = $_POST['nome'] ?? '';
-    $empresa = $_POST['empresa'] ?? '';
-    $senha = $_POST['senha'] ?? '';
+    $nomeForm  = $_POST['nome'] ?? '';
+    if(isset($_POST['empresa'])){
+      $empresa = 1;
+    }else{
+      $empresa = 0;
+    }
+    $senhaForm  = $_POST['senha'] ?? '';
+    
   ?>
-  <div class="bg-success p-2" style="--bs-bg-opacity: .5;" id="divCadastr">
+  <div class="bg-success p-2 border border-success-subtle" style="--bs-bg-opacity: .5;" id="divCadastr">
       <h1 class="text-center" class="text-break">Criar úsuario</h1>
       <form action="<?=$_SERVER['PHP_SELF']?>" method="post">
         <div class="mb-3">
           <label for="exampleFormControlInput1" class="form-label" name="nome">Nome</label>
-          <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="Nome" name="nome" value="<?=$nome?>">
+          <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="Nome" name="nome" value="<?=$nomeForm?>" required>
         </div>
-        <div class="form-check">
+        <div class="form-check"> 
           <input class="form-check-input" type="checkbox" value="" id="flexCheckIndeterminate" name="empresa">
           <label class="form-check-label" for="flexCheckIndeterminate">
             Você é uma empresa?
           </label>
         </div>
         <div class="mb-3">
-          <label for="exampleFormControlInput1" class="form-label" name="senha">Senha</label>
-          <input type="password" class="form-control" id="inputPassword6" placeholder="Senha" value="<?=$senha?>">
+          <label for="exampleFormControlInput1" class="form-label" >Senha</label>
+          <input type="password" class="form-control" id="inputPassword6" placeholder="Senha" name="senha" value="<?=$senhaForm ?>" required>
         </div>
         <div class="text-center">
           <button type="submit" class="btn btn-primary btn-lg">Criar</button>
@@ -63,7 +68,67 @@
       <p class="text-center" class="text-break">Você já tem uma conta?<br><a href="/login/" class="aDefault">Logar-se</a></p>
 
   </div>
+  <?php
+  //se tiver nome e senha  executa isso
+        if($nomeForm && $senhaForm){
+            //criptografa o nome e senha do form
+            $nomeCript = md5($nomeForm);
+            $senhaCript = md5($senhaForm);
+            //variaveis para conseguir fazer o crud no mysql
+            $hostname="127.0.0.1";
+            $username="testegit";
+            $password="testegit";
+            $dbname="BDCliente";
+            $conn = new mysqli($hostname,$username,$password,$dbname);
+            if(!$conn){
+                die("Connect failed". mysqli_connect_error());
+            }
+            //faz o comando para o mysql e retorna a lista do banco de dados com nomes e senha criptografados
+            $query = "SELECT nomeCliente,senhaCliente FROM CadasTable";
+            $databaseSearch = $conn->query($query);
+            $result = $databaseSearch->fetch_all(MYSQLI_ASSOC);
+            $tam_result = sizeof($result) ?? 0;
 
+            //Se o resultado for igual a NULL incere o nome e senha no banco de dados
+            if($result == NULL){
+                
+                $query2 = "INSERT INTO CadasTable (nomeCliente,empresaSON,senhaCliente) VALUES ('$nomeCript',$empresa,'$senhaCript')";
+                $conn->query($query2);
+                mysqli_close($conn);
+                
+            }else{
+                //Se não ele executa um for
+                for($cont = 0; $cont < $tam_result; $cont++){
+                    //verifica se há um nome igual já cadastrado
+                    if($result[$cont]["nomeCliente"] == $nomeCript){
+                     
+                        echo '<div class="p-3 mb-2 bg-danger text-white border border-danger text-center" style="border-radius: 5px;"><p>Nome de usuario já existente</p></div>';
+                        
+                    }else{
+                        //Se não tiver ele cadastra esse nome e incere um cookie
+                        $query2 = "INSERT INTO cadastros (nomeCliente,senhaCliente) VALUES ('$nomeCript','$senhaCript')";
+                        $conn->query($query2);
+                        //Exclui e depois cria um novo cookie
+                        setcookie("NameCad", $nomeForm, time()-864000,'/');
+                        setcookie("NameCad", $nomeForm, time()+864000,'/');
+                        
+                        
+                    }
+                }
+                //fecha o banco de dados
+                mysqli_close($conn);
+            }
+            
+           
+            
+        }else{
+            //se o botão Cadastrar do from for clicado e nome e senha for igual a uma string vazia
+            if(isset($_POST['Cadastrar']) && $nomeForm == '' && $senhaForm == ''){
+                echo "<div id='divError'><p>Prencha todos os campos</p></div>";
+            }
+        }
+    
+    ?>
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 </body>
