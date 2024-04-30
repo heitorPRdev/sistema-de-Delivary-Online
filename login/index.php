@@ -4,35 +4,70 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-    <script src="node_modules/jquery/dist/jquery.min.js"></script>
+    <script
+        src="https://code.jquery.com/jquery-3.7.1.js"
+        integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4="
+        crossorigin="anonymous"></script>
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="/default/StyleDefault.css">
-    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
     <title>Document</title>
 </head>
 <body>
-<nav class="navbar navbar-expand-lg bg-body-tertiary">
-    <div class="container-fluid">
-      <a class="navbar-brand" href="/">Home</a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarNav">
-        <ul class="navbar-nav">
-          <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="#">Menu</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="/sistema-de-Delivary-Online/login">Login</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="/sistema-de-Delivary-Online/cadastro/">Cadastro</a>
-          </li>
-        
-        </ul>
-      </div>
-    </div>
-  </nav>
+  <?php
+    $cookiesEntra = $_COOKIE['NameCad'] ?? '';
+    if($cookiesEntra == ''){
+        echo '<nav class="navbar navbar-expand-lg bg-body-tertiary">
+        <div class="container-fluid">
+          <a class="navbar-brand" href="/">Home</a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+              <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="#">Menu</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/login">Login</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/cadastro/">Cadastro</a>
+              </li>
+            
+            </ul>
+          </div>
+        </div>
+      </nav>';
+    }else{
+        echo '<nav class="navbar navbar-expand-lg bg-body-tertiary">
+        <div class="container-fluid">
+          <a class="navbar-brand" href="/">Home</a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+              <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="#">Menu</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/login">Login</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/cadastro/">Cadastro</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/profile/"><i class="bi bi-person-circle"></i>Perfil</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </nav>';
+    }
+  
+  
+  ?>
   <?php 
     $nomeForm  = $_POST['nome'] ?? '';
     if(isset($_POST['empresa'])){
@@ -60,7 +95,7 @@
         </div>
           
       </form>
-      <p class="text-center" class="text-break">Você não tem uma conta?<br><a href="/login/" class="aDefault">Cadastrar-se</a></p>
+      <p class="text-center" class="text-break">Você não tem uma conta?<br><a href="/cadastro/" class="aDefault">Cadastrar-se</a></p>
 
   </div>
     <?php 
@@ -95,7 +130,7 @@
                         setcookie("NameCad", $nomeForm, time()-864000,'/');
                         setcookie("NameCad", $nomeForm, time()+864000,'/');
                         //redireciona para a pagina do profile
-                        header("location:/api/profile/");
+                        header("location:/profile/");
                         
                     }else{
                         //se a senha ou nome estiver errada
@@ -116,7 +151,7 @@
         }
         //se você estiver com um cookie poderá usar a forma mais rapida
         if($_COOKIE['NameCad'] ?? 0){
-            echo "<div id='GoProfileDiv'><h1>Verificamos o seu login, deseja ir direto a sua conta?</h1><button id='GOProfile'>Ir</button></div>";
+            echo "<div class='bg-dark' style='border-radius: 5px; margin:5px; padding:5px;'><h1 class='text-center  text-white'>Verificamos o seu login, deseja ir direto a sua conta? <button class='btn btn-primary btn-lg' id='fastProfile'>Ir</button></h1></div>";
             //chamara a função LoginSistem
             LoginSistem();
         }else{
@@ -127,5 +162,14 @@
     ?>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+
+    <script>
+        $(document).ready(function(){
+            $("#fastProfile").click(function(){
+                window.location.href = "/profile/";
+            });
+        });
+    </script>
+
 </body>
 </html>

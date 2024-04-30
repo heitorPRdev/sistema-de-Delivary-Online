@@ -8,31 +8,64 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <script src="node_modules/jquery/dist/jquery.min.js"></script>
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
     <link rel="stylesheet" href="/default/StyleDefault.css">
 </head>
 <body>
-  <nav class="navbar navbar-expand-lg bg-body-tertiary">
-    <div class="container-fluid">
-      <a class="navbar-brand" href="/">Home</a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarNav">
-        <ul class="navbar-nav">
-          <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="#">Menu</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="/sistema-de-Delivary-Online/login">Login</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="/sistema-de-Delivary-Online/cadastro/">Cadastro</a>
-          </li>
-        
-        </ul>
-      </div>
-    </div>
-  </nav>
+  <?php
+    $cookiesEntra = $_COOKIE['NameCad'] ?? '';
+    if($cookiesEntra == ''){
+        echo '<nav class="navbar navbar-expand-lg bg-body-tertiary">
+        <div class="container-fluid">
+          <a class="navbar-brand" href="/">Home</a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+              <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="#">Menu</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/login">Login</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/cadastro/">Cadastro</a>
+              </li>
+            
+            </ul>
+          </div>
+        </div>
+      </nav>';
+    }else{
+        echo '<nav class="navbar navbar-expand-lg bg-body-tertiary">
+        <div class="container-fluid">
+          <a class="navbar-brand" href="/">Home</a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+              <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="#">Menu</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/login">Login</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/cadastro/">Cadastro</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/profile/"><i class="bi bi-person-circle"></i>Perfil</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </nav>';
+    }
+  
+  
+  ?>
   <?php 
     $nomeForm  = $_POST['nome'] ?? '';
     if(isset($_POST['empresa'])){
@@ -69,7 +102,7 @@
 
   </div>
   <?php
-  //se tiver nome e senha  executa isso
+    //se tiver nome e senha  executa isso
         if($nomeForm && $senhaForm){
             //criptografa o nome e senha do form
             $nomeCript = md5($nomeForm);
@@ -95,7 +128,8 @@
                 $query2 = "INSERT INTO CadasTable (nomeCliente,empresaSON,senhaCliente) VALUES ('$nomeCript',$empresa,'$senhaCript')";
                 $conn->query($query2);
                 mysqli_close($conn);
-                
+                setcookie("NameCad", $nomeForm, time()-864000,'/');
+                setcookie("NameCad", $nomeForm, time()+864000,'/');
             }else{
                 //Se não ele executa um for
                 for($cont = 0; $cont < $tam_result; $cont++){
@@ -106,7 +140,7 @@
                         
                     }else{
                         //Se não tiver ele cadastra esse nome e incere um cookie
-                        $query2 = "INSERT INTO cadastros (nomeCliente,senhaCliente) VALUES ('$nomeCript','$senhaCript')";
+                        $query2 = "INSERT INTO CadasTable (nomeCliente,empresaSON,senhaCliente) VALUES ('$nomeCript',$empresa,'$senhaCript')";
                         $conn->query($query2);
                         //Exclui e depois cria um novo cookie
                         setcookie("NameCad", $nomeForm, time()-864000,'/');

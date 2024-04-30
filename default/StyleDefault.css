@@ -1,13 +1,8 @@
 body{
-    background-color: rgb(215, 215, 215);
+    background-color: rgb(248, 248, 248);
     font-family: Arial, Helvetica, sans-serif;
     font-style: Helvetica;
     
-}
-h1,h2,h3,h4,h5,h6{
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    font-style: Tahoma;
-    color: rgb(133, 0, 0);
 }
 a{
     
