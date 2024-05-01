@@ -16,7 +16,10 @@
 <body>
   <?php
     $cookiesEntra = $_COOKIE['NameCad'] ?? '';
+    
+    $cookiesId = $_COOKIE['IdCad'] ?? '';
     if($cookiesEntra == ''){
+
         echo '<nav class="navbar navbar-expand-lg bg-body-tertiary">
         <div class="container-fluid">
           <a class="navbar-brand" href="/">Home</a>
@@ -40,30 +43,30 @@
         </div>
       </nav>';
     }else{
-        echo '<nav class="navbar navbar-expand-lg bg-body-tertiary">
-            <div class="container-fluid">
-            <a class="navbar-brand" href="/">Home</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav">
-                <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="#">Menu</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/login">Login</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/cadastro/">Cadastro</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/profile/"><i class="bi bi-person-circle"></i>Perfil</a>
-                </li>
-                </ul>
-            </div>
-            </div>
-        </nav>';
+      echo '<nav class="navbar navbar-expand-lg bg-body-tertiary">
+          <div class="container-fluid">
+          <a class="navbar-brand" href="/">Home</a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarNav">
+              <ul class="navbar-nav">
+              <li class="nav-item">
+                  <a class="nav-link active" aria-current="page" href="#">Menu</a>
+              </li>
+              <li class="nav-item">
+                  <a class="nav-link" href="/login">Login</a>
+              </li>
+              <li class="nav-item">
+                  <a class="nav-link" href="/cadastro/">Cadastro</a>
+              </li>
+              <li class="nav-item">
+                  <a class="nav-link" href="/profile/index.php?id='.$cookiesId.'"><i class="bi bi-person-circle"></i>Perfil</a>
+              </li>
+              </ul>
+          </div>
+          </div>
+      </nav>';
     }
   
   
@@ -161,8 +164,10 @@
     <script>
         $(document).ready(function(){
             $("#fastProfile").click(function(){
-                window.location.href = "/profile/";
-            });
+                window.location.href = "/profile/index.php?id='<?=$cookiesId?>'";
+              
+            
+              });
         });
     </script>
 

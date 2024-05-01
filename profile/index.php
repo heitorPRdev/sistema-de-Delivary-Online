@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-    <script src="node_modules/jquery/dist/jquery.min.js"></script>
+    
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
     <link rel="stylesheet" href="/default/StyleDefault.css">
@@ -80,7 +80,7 @@
                     <a class="nav-link" href="/cadastro/">Cadastro</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/profile/"><i class="bi bi-person-circle"></i>Perfil</a>
+                    <a class="nav-link" href="/profile/index.php?id='.$cookiesId.'"><i class="bi bi-person-circle"></i>Perfil</a>
                 </li>
                 </ul>
             </div>
@@ -89,6 +89,7 @@
         }
     
     ?>
+    
     <div class="container text-left">
         <div >
             <h1>Bem vindo,<?=$cookiesEntra?></h1>
@@ -104,8 +105,23 @@
             
             ?>
     </div>
+    <?php
+
+        if($idUrl == $cookiesId){
+            echo '
+                ';
+        }else{
+            
+        };
     
-    
+    ?>
+    <div class="container text-left">
+        <div class="row">
+            <div class="col">
+                <button type="button" class="btn btn-secondary"><i class="bi bi-gear-fill"></i> Configurações</button>
+            </div>
+        </div>
+    </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 
 </body>
