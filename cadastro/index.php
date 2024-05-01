@@ -69,11 +69,6 @@
   ?>
   <?php 
     $nomeForm  = $_POST['nome'] ?? '';
-    if(isset($_POST['empresa'])){
-      $empresa = 1;
-    }else{
-      $empresa = 0;
-    }
     $senhaForm  = $_POST['senha'] ?? '';
     
   ?>

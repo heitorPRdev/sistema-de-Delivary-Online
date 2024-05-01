@@ -9,13 +9,14 @@ create table CadasTable(
     
 );
 create table CadasEnd(
-	nomeCliente varchar(8000) not null,
-	EndeCliente varchar(8000) not null,
-    CEPCliente int(8) not null,
-	OBSCliente varchar(8000) not null,
+	idCliente varchar(8000) ,
+	EndeCliente varchar(2000) ,
+    CEPCliente int(8) ,
+	OBSCliente varchar(2000) ,
 	dataHora timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
     ID_End INT primary key not null auto_increment 
 );
-select * from CadasTable;
+select * from CadasEnd;
 INSERT INTO CadasTable (nomeCliente,empresaSON,senhaCliente) VALUES ('$nomeCript',1,'$senhaCript');
 INSERT INTO CadasTable (nomeCliente,senhaCliente) VALUES ('$nomeCript','$senhaCript');
+SELECT ID_Cadas FROM CadasTable Where nomeCliente='827ccb0eea8a706c4c34a16891f84e7b' and senhaCliente='827ccb0eea8a706c4c34a16891f84e7b';
