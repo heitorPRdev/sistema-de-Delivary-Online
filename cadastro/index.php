@@ -145,7 +145,7 @@
                         //Exclui e depois cria um novo cookie
                         setcookie("NameCad", $nomeForm, time()-864000,'/');
                         setcookie("NameCad", $nomeForm, time()+864000,'/');
-                        
+                        break;
                         
                     }
                 }

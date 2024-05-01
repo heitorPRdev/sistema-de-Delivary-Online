@@ -1,0 +1,15 @@
+
+#divCadastr{
+    width: 500px;
+    margin-left: auto;
+    margin-right: auto; 
+    border-radius: 5px;
+    padding: 5px;
+}
+
+
+a{
+    
+    color: rgb(155, 20, 20);
+    font-size: 18px;
+}

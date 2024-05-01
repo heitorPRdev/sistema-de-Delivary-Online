@@ -41,29 +41,29 @@
       </nav>';
     }else{
         echo '<nav class="navbar navbar-expand-lg bg-body-tertiary">
-        <div class="container-fluid">
-          <a class="navbar-brand" href="/">Home</a>
-          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-          </button>
-          <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav">
-              <li class="nav-item">
-                <a class="nav-link active" aria-current="page" href="#">Menu</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="/login">Login</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="/cadastro/">Cadastro</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="/profile/"><i class="bi bi-person-circle"></i>Perfil</a>
-              </li>
-            </ul>
-          </div>
-        </div>
-      </nav>';
+            <div class="container-fluid">
+            <a class="navbar-brand" href="/">Home</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="#">Menu</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/login">Login</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/cadastro/">Cadastro</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/profile/"><i class="bi bi-person-circle"></i>Perfil</a>
+                </li>
+                </ul>
+            </div>
+            </div>
+        </nav>';
     }
   
   
@@ -119,29 +119,24 @@
                     die("Connect failed". mysqli_connect_error());
                 }
                 //comando do crud para pegar a lista das contas do banco de dados
-                $query = "SELECT nomeCliente,senhaCliente FROM CadasTable";
+                $query = "SELECT ID_Cadas FROM CadasTable where nomeCliente='$nomeCript' and senhaCliente='$senhaCript'";
                 $databaseSearch = $conn->query($query);
                 $result = $databaseSearch->fetch_all(MYSQLI_ASSOC);
-                //percorre toda lista
-                for($cont = 0; $cont < sizeof($result); $cont++){
-                    //se o nome da lista(criptografado) e o nome 
-                    if($result[$cont]["nomeCliente"] == $nomeCript && $result[$cont]["senhaCliente"] == $senhaCript){
-                        //Exclui e depois cria um novo cookie
-                        setcookie("NameCad", $nomeForm, time()-864000,'/');
-                        setcookie("NameCad", $nomeForm, time()+864000,'/');
-                        //redireciona para a pagina do profile
-                        header("location:/profile/");
-                        
-                    }else{
-                        //se a senha ou nome estiver errada
-                        echo "<div class='p-3 mb-2 bg-danger text-white border border-danger text-center' style='border-radius: 5px;'><p>nome ou senha não existe</p></div>";
-                        
-                    }
-    
-                    
+                
+                if(!$result){
+                  echo "<div class='p-3 mb-2 bg-danger text-white border border-danger text-center' style='border-radius: 5px;'><p>nome ou senha não existe</p></div>";
+                }else{
+                  $id = $result[0]['ID_Cadas'];
+                  setcookie("NameCad", $nomeForm, time()-864000,'/');
+                  setcookie("NameCad", $nomeForm, time()+864000,'/');
+                  
+                  setcookie("IdCad", $id, time()-864000,'/');
+                  setcookie("IdCad", $id, time()+864000,'/');
+                  header("location:/profile/index.php?id=$id");
+                  
                 }
-                //fecha a conexão com banco de dados
-                mysqli_close($conn);
+                
+                
             }else{
                 //se o botão Logar do formulario for clicado e nome e senha ser = a ''
                 if(isset($_POST['Logar']) && $nomeForm == '' && $senhaForm == ''){
