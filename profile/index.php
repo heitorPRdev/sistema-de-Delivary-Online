@@ -28,13 +28,13 @@
             die("Connect failed". mysqli_connect_error());
         }
                 //comando do crud para pegar a lista das contas do banco de dados
-        $query = "SELECT empresaSON FROM CadasTable where nomeCliente='$nomeCript'";
+        $query = "SELECT empresaSON FROM CadasTable where nomeCliente='$cookiesEntra'";
         $databaseSearch = $conn->query($query);
         $result = $databaseSearch->fetch_all(MYSQLI_ASSOC);
-        if($result[0]['empresaSON']){
-            $empresa = 'Empresa';
-        }else{
+        if($result[0]['empresaSON'] == 1){
             $empresa = NULL;
+        }else{
+            $empresa = 'Empresa';
         }
         
         
@@ -92,7 +92,22 @@
     
     <div class="container text-left">
         <div >
-            <h1>Bem vindo,<?=$cookiesEntra?></h1>
+            <?php
+                $hostname="127.0.0.1";
+                $username="testegit";
+                $password="testegit";
+                $dbname="BDCliente";
+                $conn = new mysqli($hostname,$username,$password,$dbname);
+                if(!$conn){
+                    die("Connect failed". mysqli_connect_error());
+                }
+                //faz o comando para o mysql e retorna a lista do banco de dados com nomes e senha criptografados
+                $query = "SELECT nomeCliente FROM CadasTable where ID_Cadas=$idUrl";
+                $databaseSearch = $conn->query($query);
+                $nomePagina = $databaseSearch->fetch_all(MYSQLI_ASSOC);
+            
+            ?>
+            <h1>Bem vindo,<?=$nomePagina[0]['nomeCliente']?></h1>
 
         </div>
         <?php
@@ -112,7 +127,7 @@
             <div class="container text-left">
                 <div class="row">
                     <div class="col">
-                        <button type="button" class="btn btn-secondary"><i class="bi bi-gear-fill"></i> Configurações</button>
+                        <button type="button" class="btn btn-secondary" id="configBtn"><i class="bi bi-gear-fill"></i> Configurações</button>
                     </div>
                 </div>
             </div>';
@@ -123,6 +138,6 @@
     ?>
     
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
-
+    <script src="profileJs.js"></script>
 </body>
 </html>

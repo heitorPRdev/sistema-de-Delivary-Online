@@ -109,7 +109,6 @@
             //Se tiver eles
             if($nomeForm && $senhaForm){
                 //criptografa else
-                $nomeCript = md5($nomeForm);
                 $senhaCript = md5($senhaForm);
                 //variaveis para conseguir fazer o crud no mysql
                 $hostname="127.0.0.1";
@@ -122,7 +121,7 @@
                     die("Connect failed". mysqli_connect_error());
                 }
                 //comando do crud para pegar a lista das contas do banco de dados
-                $query = "SELECT ID_Cadas FROM CadasTable where nomeCliente='$nomeCript' and senhaCliente='$senhaCript'";
+                $query = "SELECT ID_Cadas FROM CadasTable where nomeCliente='$nomeForm' and senhaCliente='$senhaCript'";
                 $databaseSearch = $conn->query($query);
                 $result = $databaseSearch->fetch_all(MYSQLI_ASSOC);
                 
@@ -149,7 +148,7 @@
         }
         //se você estiver com um cookie poderá usar a forma mais rapida
         if($_COOKIE['NameCad'] ?? 0){
-            echo "<div class='bg-dark' style='border-radius: 5px; margin:5px; padding:5px;'><h1 class='text-center  text-white'>Verificamos o seu login, deseja ir direto a sua conta? <button class='btn btn-primary btn-lg' id='fastProfile'>Ir</button></h1></div>";
+            
             //chamara a função LoginSistem
             LoginSistem();
         }else{
@@ -161,15 +160,7 @@
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
     
-    <script>
-        $(document).ready(function(){        
-            $("#fastProfile").click(function(){
-                window.location.href = "/profile/index.php?id=<?=$cookiesId?>";
-              
-            
-              });
-        });
-    </script>
+    
 
 </body>
 </html>

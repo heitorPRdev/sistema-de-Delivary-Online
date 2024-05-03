@@ -90,13 +90,17 @@
                 die("Connect failed". mysqli_connect_error());
             }
         if(!$nomeEdt == ''){
+            setcookie("NameCad", $nomeEdt, time()-864000,'/');
+            setcookie("NameCad", $nomeEdt, time()+864000,'/');
+                  
+            setcookie("IdCad", $id, time()-864000,'/');
+            setcookie("IdCad", $id, time()+864000,'/');
             
-            
-            $query = "UPDATE CadasTable SET nomeCliente='".md5($nomeEdt)."' where ID_Cadas='$cookiesId'";
+            $query = "UPDATE CadasTable SET nomeCliente='$nomeEdt' where ID_Cadas='$cookiesId'";
             $databaseSearch = $conn->query($query);
            
         }if(!$senhaEdt == ''){
-            $query = "UPDATE CadasTable SET senhaCliente='".md5($senhaEdt)."' where ID_Cadas='$cookiesId'";
+            $query = "UPDATE CadasTable SET senhaCliente='$senhaEdt' where ID_Cadas='$cookiesId'";
             $databaseSearch = $conn->query($query);
         }
         

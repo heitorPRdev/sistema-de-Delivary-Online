@@ -70,7 +70,12 @@
   <?php 
     $nomeForm  = $_POST['nome'] ?? '';
     $senhaForm  = $_POST['senha'] ?? '';
-    
+    $empresaForm = $_POST['empresa'] ?? '';
+    if($empresaForm == ''){
+      $empresa = 1;
+    }else{
+      $empresa = 0;
+    }
   ?>
   <div class="bg-success p-2 border border-success-subtle" style="--bs-bg-opacity: .5;" id="divCadastr">
       <h1 class="text-center" class="text-break">Criar úsuario</h1>
@@ -101,7 +106,7 @@
     //se tiver nome e senha  executa isso
         if($nomeForm && $senhaForm){
             //criptografa o nome e senha do form
-            $nomeCript = md5($nomeForm);
+           
             $senhaCript = md5($senhaForm);
             //variaveis para conseguir fazer o crud no mysql
             $hostname="127.0.0.1";
@@ -121,7 +126,7 @@
             //Se o resultado for igual a NULL incere o nome e senha no banco de dados
             if($result == NULL){
                 
-                $query2 = "INSERT INTO CadasTable (nomeCliente,empresaSON,senhaCliente) VALUES ('$nomeCript',$empresa,'$senhaCript')";
+                $query2 = "INSERT INTO CadasTable (nomeCliente,empresaSON,senhaCliente) VALUES ('$nomeForm',$empresa,'$senhaCript')";
                 $conn->query($query2);
                 mysqli_close($conn);
                 setcookie("NameCad", $nomeForm, time()-864000,'/');
@@ -130,13 +135,13 @@
                 //Se não ele executa um for
                 for($cont = 0; $cont < $tam_result; $cont++){
                     //verifica se há um nome igual já cadastrado
-                    if($result[$cont]["nomeCliente"] == $nomeCript){
+                    if($result[$cont]["nomeCliente"] == $nomeForm){
                      
                         echo '<div class="p-3 mb-2 bg-danger text-white border border-danger text-center" style="border-radius: 5px;"><p>Nome de usuario já existente</p></div>';
                         
                     }else{
                         //Se não tiver ele cadastra esse nome e incere um cookie
-                        $query2 = "INSERT INTO CadasTable (nomeCliente,empresaSON,senhaCliente) VALUES ('$nomeCript',$empresa,'$senhaCript')";
+                        $query2 = "INSERT INTO CadasTable (nomeCliente,empresaSON,senhaCliente) VALUES ('$nomeForm',$empresa,'$senhaCript')";
                         $conn->query($query2);
                         //Exclui e depois cria um novo cookie
                         setcookie("NameCad", $nomeForm, time()-864000,'/');
